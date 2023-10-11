@@ -1,5 +1,5 @@
 <script setup>
-import SocialLogin from "../components/SocialLogin.vue";
+//import SocialLogin from "../components/SocialLogin.vue";
 
 let user = "Andrew";
 </script>
