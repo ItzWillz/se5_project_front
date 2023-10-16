@@ -29,7 +29,7 @@ const viewAcc = () => {
     console.error('Error: No course selected.');
     return;
   }
-  router.push({ name: 'viewAAcc', params: { id: selectedAcc.value } });
+  router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
 };
 
 onMounted(() => {

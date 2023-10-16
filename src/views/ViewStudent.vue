@@ -30,6 +30,10 @@ retrieveStudent();
 const returnHome = () => {
   router.push({ path: "/" });
 };
+
+const ViewSchedule = () => {
+  router.push({ name: "courseSchedule" ,params: { id: selectedStudent.value } });
+};
 </script>
 
 <template>
@@ -66,6 +70,10 @@ const returnHome = () => {
         </v-row>
 
         <v-row>
+          <v-col cols="auto">
+            <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="ViewSchedule">
+             View Schedule </v-btn>
+            </v-col>
             <v-col cols="auto">
             <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="returnHome">
              Exit </v-btn>

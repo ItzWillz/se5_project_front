@@ -5,7 +5,7 @@ import SocialLogin from "../components/SocialLogin.vue";
 <template>
   <v-container>
     <v-toolbar>
-      <v-toolbar-title>Accomadtion Sign-In</v-toolbar-title>
+      <v-toolbar-title>Accomadation Sign-In</v-toolbar-title>
     </v-toolbar>
     <br /><br />
     <SocialLogin />

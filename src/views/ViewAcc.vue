@@ -18,23 +18,6 @@ const returnHome = () => {
   router.push({ path: "/" });
 };
 
-const editAcc = async () => {
-  const data = {
-    type: accomadation.value.type,
-    course: accomadation.value.course,
-    professor: course.value.professor,
-   
-  };
-  try {
-    const response = await AccServices.update(props.id, data);
-    accomadation.value.accomadationNum = response.data.id;
-    router.push({ name: "accomadation" });
-  } 
-  catch (e) {
-    console.log(e.response.data.message);
-    //message.value = e.response.data.message;
-  }
-};
 
 
 </script>
@@ -51,17 +34,16 @@ const editAcc = async () => {
 
         <v-row>
             <v-col>
-            <v-text-field v-model="accomadation.name" label="Accomadation Name:" hide-details required></v-text-field>
+            <v-text-field v-model="accomadation.name" label="Accomadation Name:" hide-details readonly=""></v-text-field>
             </v-col>
         </v-row>
         <v-row>
           <v-col  cols="12"  md="4">
-            <v-select v-model="accomadation.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom',]" required hide-details
-            ></v-select>
+            <v-select v-model="accomadation.type" id="type" label="Type:" hide-details readonly=""></v-select>
           </v-col>
   
           <v-col cols="12" md="4" >
-          <v-select v-model="accomadation.course" label="Class:" :items="['0','1', '2', '3', '4',]" > </v-select>
+          <v-select v-model="accomadation.course" label="Class:" readonly="" > </v-select>
           </v-col>
 
             <v-col cols="12" md="4" >
@@ -73,24 +55,14 @@ const editAcc = async () => {
         <v-row>
           <v-col cols="12" >
             <h3>Documents:</h3>
-            <v-row>
-            <v-col cols="auto">
-            <v-button>Upload</v-button>
-            </v-col>
-            <v-col cols="auto">
-            <v-button>Delete</v-button>
-            </v-col>
-            </v-row>
             <Listbox v-model="selectedfile"  :options='files' filter optionLabel= 'name' optionValue="fileNum" />
           </v-col>
         </v-row>
 
         <v-row>
             <v-col cols="auto">
-            <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="editAcc()">
-             Update/Approve </v-btn>
             <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="returnHome">
-             Reject </v-btn>
+             Exit </v-btn>
             </v-col>
         </v-row>
       </v-container>

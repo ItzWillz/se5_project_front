@@ -30,7 +30,7 @@ const viewStudent = () => {
     console.error('Error: No course selected.');
     return;
   }
-  router.push({ name: 'viewStudent', params: { id: selectedStudent.value } });
+  router.push({ name: 'view', params: { id: selectedStudent.value } });
 };
 </script>
 
