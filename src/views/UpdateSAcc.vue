@@ -28,7 +28,7 @@ const editAcc = async () => {
   try {
     const response = await AccServices.update(props.id, data);
     accomadation.value.accomadationNum = response.data.id;
-    router.push({ name: "Home" });
+    router.push({ name: "accomadation" });
   } 
   catch (e) {
     console.log(e.response.data.message);

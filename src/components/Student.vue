@@ -31,7 +31,7 @@ const deleteAcc = () => {
 };
     
 const newAcc =() => {
-     router.push({ name: 'addSAcc'});
+     router.push({ name: 'add'});
 };
 
 const updateAcc =() => {
@@ -39,7 +39,7 @@ const updateAcc =() => {
     console.error('Error: No course selected.');
     return;
   }
-  router.push({ name: 'edit', params: { id: selectedAcc.value } });
+  router.push({ name: 'studentupdate', params: { id: selectedAcc.value } });
 };
 
 const viewAcc = () => {
@@ -47,7 +47,7 @@ const viewAcc = () => {
     console.error('Error: No course selected.');
     return;
   }
-  router.push({ name: 'viewSAcc', params: { id: selectedAcc.value } });
+  router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
 };
 
 onMounted(() => {
