@@ -7,9 +7,7 @@ import Professor from "../components/Professor.vue";
 
 <template>
   <v-container >
-    <Student v-if="user.role=student"/>
-    <Admin v-if="user.role=admin" />
-    <Professor v-if="user.role=faculty"/>
+    Hello, this is the accommodations page.
 
   </v-container>
 </template>
