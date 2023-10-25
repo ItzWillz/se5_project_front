@@ -6,6 +6,7 @@ import Login from "./views/Login.vue";
 import AdminHome from "./views/AdminHome.vue";
 import FacultyHome from "./views/FacultyHome.vue";
 import StudentHome from "./views/StudentHome.vue";
+import Accommodation from "./views/Accommodation.vue";
 import StudentUpdate from "./views/UpdateSAcc.vue";
 import SearchStudent from "./views/SearchStudent.vue";
 import AdminUpdate from "./views/UpdateAAcc.vue";
@@ -56,18 +57,21 @@ const router = createRouter({
         }
       },
     },
-  
+    {
+      path: "/accommodation",
+      name: "accommodation",
+      component: Accommodation,
+    },
     {
       path: "/new",
       name: "add",
       component: NewRequest,
     },
     {
-      path: "/studentupdate",
-      //path: "/studentupdate/:id",
+      path: "/studentupdate/:id",
       name: "studentupdate",
       component: StudentUpdate,
-      //props: true,
+      props: true,
     },
     {
       path: "/adminupdate/:id",
