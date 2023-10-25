@@ -7,11 +7,8 @@ const router = useRouter();
 const user = Utils.getStore("user")
 console.log(user)
 
-// import ocLogo from "/oc-logo-white.png";
 // import { ref, onMounted } from "vue";
- import accServices from "../services/accommodationServices";
 
-// const logoURL = ref("");
 // const selectedAcc = ref();
 // const accomadation = ref([]);
 
