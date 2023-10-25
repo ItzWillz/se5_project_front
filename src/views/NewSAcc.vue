@@ -1,34 +1,37 @@
 <script setup>
   import { ref } from "vue";
-  import accServices from "../services/accommodationServices";
+  import accReqServices from "../services/accReqServices";
   import { useRouter } from "vue-router";
+  import Utils from "../config/utils"
 
  const valid = ref(false);
   const router = useRouter();
   const message = ref("");
 
-  const accommodation = ref({
-  id: null,
-  title: "Accommodation Title",
-  type: "",
+  const accRequest = ref({
+  /*id: null,*/
+  body: "",
   semester: "",
+  type: "",
   status: "Pending",
+  studentId: Utils.getStore("user").userId,
 });
 
-
-const saveAcc = () => {
+const saveAccReq = () => {
   const data = {
-    title: accommodation.value.title,
-    type: accommodation.value.type,
-    semester: accommodation.value.semester,
-    status: accommodation.value.status,
+    body: accRequest.value.body,
+    type: accRequest.value.type,
+    semester: accRequest.value.semester,
+    status: accRequest.value.status,
+    studentId: accRequest.value.studentId
     
   };
-  accServices.create(data)
+  console.log(data);
+  accReqServices.create(data)
     .then((response) => {
-      accommodation.value.id = response.data.id;
+      accRequest.value.id = response.data.id;
       console.log("add " + response.data);
-      router.push({ path: "/" });
+      router.push({ path: `/${Utils.getStore("user").permission}` });
     })
     .catch((e) => {
       //console.log(e);
@@ -37,7 +40,7 @@ const saveAcc = () => {
 };
 
 const returnHome = () => {
-  router.push({ path: "/" });
+  router.push({ path: `/${Utils.getStore("user").permission}` });
 };
 
 
@@ -50,15 +53,15 @@ const returnHome = () => {
 <h1>Accommodation Request Creation</h1>
     <v-form v-model="valid" style="padding-top:50px;">
 
-            <v-text-field v-model="accommodation.title" id="name" label="Name (*Admin edit only)" :counter="50" required hide-details disabled
+            <v-text-field v-model="accRequest.body" id="body" label="Body" :counter="50" required hide-details
             ></v-text-field>
 
       <v-container>
         <v-row>
           <v-col  cols="12"  md="4">
-            <v-select v-model="accommodation.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom',]" required hide-details
+            <v-select v-model="accRequest.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom',]" required hide-details
             ></v-select>
-            <v-select v-model="accommodation.semester" id="type" label="Type:" :items="['Fall23','Winter23', 'Spring24', 'Summer24',]" required hide-details
+            <v-select v-model="accRequest.semester" id="semester" label="Semester  :" :items="['Fall23','Winter23', 'Spring24', 'Summer24',]" required hide-details
             ></v-select>
           </v-col>
   
@@ -92,7 +95,7 @@ const returnHome = () => {
 
         <v-row>
             <v-col cols="auto">
-            <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="saveAcc()">
+            <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="saveAccReq()">
              Submit </v-btn>
             <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="returnHome">
              Return </v-btn>
