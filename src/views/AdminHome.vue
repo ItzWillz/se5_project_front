@@ -1,5 +1,5 @@
 <script setup>
-import Utils from "../config/utils"
+import Utils from "../config/utils";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
