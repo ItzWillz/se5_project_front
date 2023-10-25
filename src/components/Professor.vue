@@ -31,9 +31,6 @@ const viewStudent = () => {
   router.push({ name: 'view', params: { id: selectedStudent.value } });
 };
 
-onMounted(() => {
-  loginWithGoogle();
-});
 </script>
 
 <template>
@@ -43,7 +40,7 @@ onMounted(() => {
     </v-toolbar>
 
  <div class="column">    
-    <h3>Students with Accomadations</h3>
+    <h3>Students with Accommodations</h3>
 <div class="card flex justify-content-center">
         <Listbox v-model="selectedStudent"  :options='student' filter optionLabel= 'name' optionValue="StudentNum" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />

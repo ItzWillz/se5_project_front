@@ -32,9 +32,6 @@ const viewAcc = () => {
   router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
 };
 
-onMounted(() => {
-  loginWithGoogle();
-});
 </script>
 
 <template>

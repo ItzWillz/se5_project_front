@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from "vue-router";
+import Utils from "./config/utils"
 
 import Login from "./views/Login.vue";
 
-
-import Accomadation from "./views/Accomadation.vue";
+import AdminHome from "./views/AdminHome.vue";
+import FacultyHome from "./views/FacultyHome.vue";
+import StudentHome from "./views/StudentHome.vue";
+import Accommodation from "./views/Accommodation.vue";
 import StudentUpdate from "./views/UpdateSAcc.vue";
 import SearchStudent from "./views/SearchStudent.vue";
 import AdminUpdate from "./views/UpdateAAcc.vue";
@@ -22,9 +25,42 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: "/accomadation",
-      name: "accomadation",
-      component: Accomadation,
+      path: "/admin",
+      name: "admin",
+      component: AdminHome,
+      // Prevent a user from navigating to the admin page if they do not have admin permission level. Redirect to proper page for permission.
+      beforeEnter: () => {
+        if (Utils.getStore("user") === null || Utils.getStore("user").permission !== 'admin') {
+          router.push({name: Utils.getStore("user").permission});
+        }
+      },
+    },
+    {
+      path: "/faculty",
+      name: "faculty",
+      component: FacultyHome,
+      // Prevent a user from navigating to the faculty page if they do not have faculty permission level. Redirect to proper page for permission.
+      beforeEnter: () => {
+        if (Utils.getStore("user") === null || Utils.getStore("user").permission !== 'faculty') {
+          router.push({name: Utils.getStore("user").permission});
+        }
+      },
+    },
+    {
+      path: "/student",
+      name: "student",
+      component: StudentHome,
+      // Prevent a user from navigating to the student page if they do not have student permission level. Redirect to proper page for permission.
+      beforeEnter: () => {
+        if (Utils.getStore("user") === null || Utils.getStore("user").permission !== 'student') {
+          router.push({name: Utils.getStore("user").permission});
+        }
+      },
+    },
+    {
+      path: "/accommodation",
+      name: "accommodation",
+      component: Accommodation,
     },
     {
       path: "/new",
