@@ -3,6 +3,7 @@
 
   import { Modal } from 'usemodal-vue3';
   import accReqServices from "../services/accReqServices";
+  import studentServices from "../services/studentServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
 
@@ -12,6 +13,15 @@
  const valid = ref(false);
   const router = useRouter();
   const message = ref("");
+
+  let stuId = null;
+
+studentServices.getStudentIdByUserId(Utils.getStore("user").userId)
+.then((response) => {
+  stuId = response.data.id
+}).catch((e) => {
+  console.log(e)
+});
 
   const accRequest = ref({
   /*id: null,*/
@@ -24,7 +34,9 @@
   status: "Pending",
   studentId: Utils.getStore("user").userId,
   email: Utils.getStore("user").email,
+  //studentId: stuId,
 });
+
 
 const saveAccReq = () => {
   const data = {
@@ -33,7 +45,7 @@ const saveAccReq = () => {
     type: accRequest.value.type,
     semester: accRequest.value.semester,
     status: accRequest.value.status,
-    studentId: accRequest.value.studentId
+    studentId: stuId
     
   };
   console.log(data);
