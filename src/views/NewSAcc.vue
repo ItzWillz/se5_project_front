@@ -23,6 +23,7 @@
   type: "",
   status: "Pending",
   studentId: Utils.getStore("user").userId,
+  email: Utils.getStore("user").email,
 });
 
 const saveAccReq = () => {
@@ -51,8 +52,6 @@ const saveAccReq = () => {
 const returnHome = () => {
   router.push({ path: `/${Utils.getStore("user").permission}` });
 };
-
-
 </script>
 
 <template>
