@@ -6,7 +6,6 @@ import Login from "./views/Login.vue";
 import AdminHome from "./views/AdminHome.vue";
 import FacultyHome from "./views/FacultyHome.vue";
 import StudentHome from "./views/StudentHome.vue";
-import Accommodation from "./views/Accommodation.vue";
 import StudentUpdate from "./views/UpdateSAcc.vue";
 import SearchStudent from "./views/SearchStudent.vue";
 import AdminUpdate from "./views/UpdateAAcc.vue";
@@ -56,11 +55,6 @@ const router = createRouter({
           router.push({name: Utils.getStore("user").permission});
         }
       },
-    },
-    {
-      path: "/accommodation",
-      name: "accommodation",
-      component: Accommodation,
     },
     {
       path: "/new",
