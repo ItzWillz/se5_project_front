@@ -1,21 +1,33 @@
 <script setup>
 import Utils from "../config/utils";
 import { useRouter } from "vue-router";
+import accReqServices from "../services/accReqServices";
+import studentServices from "../services/studentServices";
 
 const router = useRouter();
 
 const user = Utils.getStore("user")
-console.log(user)
 
-// import { ref, onMounted } from "vue";
+ import { ref, onMounted } from "vue";
+ import Listbox from "primevue/listbox";
 
-// const selectedAcc = ref();
-// const accomadation = ref([]);
+ const selectedAcc = ref();
+ const accReq = ref([]);
 
-const retrieveAcc = () => {
-  accServices.getAll()
+
+let stuId = '';
+
+studentServices.getStudentIdByUserId(Utils.getStore("user").userId)
+.then((response) => {
+  stuId = response.data.id
+}).catch((e) => {
+  console.log(e)
+});
+
+const retrieveAccReq = () => {
+  accReqServices.getAllForUser(stuId)
     .then((response) => {
-      accomadation.value = response.data;
+      accReq.value = response.data;
     })
     .catch((e) => {
         console.log(e);
@@ -23,7 +35,8 @@ const retrieveAcc = () => {
     });
 };
 
-//retrieveAcc();
+retrieveAccReq();
+const display = (accReq) => accReq.type + " " + accReq.semester;
 
 // const deleteAcc = () => {
 //   accServices.delete(selectedAcc.value)
@@ -77,9 +90,9 @@ const newAcc =() => {
     </v-toolbar>
 
  <div class="column">    
-        <h2>Current Accomadations</h2>
+        <h2>Accomadation Requests</h2>
 <div class="card flex justify-content-center">
-        <Listbox v-model="selectedAcc"  :options='accomadation' filter optionLabel= 'name' optionValue="accomadationNum" 
+        <Listbox v-model="selectedAcc"  :options='accReq' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
     </div>

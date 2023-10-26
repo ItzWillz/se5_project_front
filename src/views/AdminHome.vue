@@ -1,21 +1,23 @@
 <script setup>
 import Utils from "../config/utils";
 import { useRouter } from "vue-router";
+import Listbox from 'primevue/listbox';
 
 const router = useRouter();
 
 const user = Utils.getStore("user")
-console.log(user)
 
-// import { ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
+import accReqServices from "../services/accReqServices";
 
-// const selectedAcc = ref();
-// const accomadation = ref([]);
+ const selectedAcc = ref();
+ const accReq = ref([]);
+ const acc = ref([]);
 
-const retrieveAcc = () => {
-  accServices.getAll()
+const retrieveAccReq = () => {
+  accReqServices.getAll()
     .then((response) => {
-      accomadation.value = response.data;
+      accReq.value = response.data;
     })
     .catch((e) => {
         console.log(e);
@@ -23,7 +25,26 @@ const retrieveAcc = () => {
     });
 };
 
-//retrieveAcc();
+console.log(accReq.value);
+retrieveAccReq();
+
+ const display = (accReq) => accReq.studentId + " " +accReq.type + " " + accReq.semester;
+
+ const retrieveAcc = () => {
+  accServices.getAll()
+    .then((response) => {
+      accReq.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    //   message.value = e.response.data.message;
+    });
+};
+
+console.log(acc.value);
+retrieveAccReq();
+
+ const displayAcc = (accReq) => accReq.studentId + " " +accReq.type + " " + accReq.semester;
 
 // const deleteAcc = () => {
 //   accServices.delete(selectedAcc.value)
@@ -31,26 +52,22 @@ const retrieveAcc = () => {
 //         router.go();
 //     });
 // };
-    
-const newAcc =() => {
-     router.push({ name: 'add'});
+
+const updateAcc =() => {
+  if (!selectedAcc.value) {
+    console.error('Error: No course selected.');
+    return;
+  }
+  router.push({ name: `${Utils.getStore("user").permission}update`, params: { id: selectedAcc.value } });
 };
 
-// const updateAcc =() => {
-//   if (!selectedAcc.value) {
-//     console.error('Error: No course selected.');
-//     return;
-//   }
-//   router.push({ name: 'studentupdate', params: { id: selectedAcc.value } });
-// };
-
-// const viewAcc = () => {
-//   if (!selectedAcc.value) {
-//     console.error('Error: No course selected.');
-//     return;
-//   }
-//   router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
-// };
+const viewAcc = () => {
+  if (!selectedAcc.value) {
+    console.error('Error: No course selected.');
+    return;
+  }
+  router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
+};
 
 </script>
 
@@ -77,9 +94,9 @@ const newAcc =() => {
     </v-toolbar>
 
  <div class="column">    
-        <h2>Current Accomadations</h2>
+        <h2>Incoming Requests</h2>
 <div class="card flex justify-content-center">
-        <Listbox v-model="selectedAcc"  :options='accomadation' filter optionLabel= 'name' optionValue="accomadationNum" 
+        <Listbox v-model="selectedAcc"  :options='accReq' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
     </div>
@@ -87,18 +104,29 @@ const newAcc =() => {
     <div style="margin-top: 0.1rem"> 
       <h2 style="text-align: center;">Actions</h2>
       <div class="row">
-       <button class=test @click="newAcc()">Request New </button>
-      <button class=test @click="updateAcc(accomadation)"> Request changes </button>
-
-      </div>
-
-      <div class="row" >
-       <button class=test @click="viewAcc(accomadation)">View</button>
-
+      <button class=test @click="updateAcc()"> Edit Request </button>
       </div>
       </div>
  </div>
 
+ <div class="column">    
+        <h2>Current Accomadations</h2>
+<div class="card flex justify-content-center">
+        <Listbox v-model="selectedAcc"  :options='acc' filter :optionLabel= 'displayAcc' optionValue="id" 
+        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+
+    </div>
+ 
+    <div style="margin-top: 0.1rem"> 
+      <h2 style="text-align: center;">Actions</h2>
+      <div class="row">
+      <button class=test @click="updateAcc()"> Edit Accommodation </button>
+      </div>
+      <div class="row" >
+       <button class=test @click="viewAcc()">View</button>
+      </div>
+      </div>
+ </div>
         
   </v-container>
 </template>
