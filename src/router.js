@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Utils from "./config/utils"
 
 import Login from "./views/Login.vue";
@@ -15,7 +15,7 @@ import ViewStudent from "./views/ViewStudent.vue";
 import CourseSchedule from "./views/ViewCourseSchedule.vue";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
