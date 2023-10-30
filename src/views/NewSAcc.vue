@@ -33,7 +33,7 @@ studentServices.getStudentIdByUserId(Utils.getStore("user").userId)
   type: "",
   status: "Pending",
   studentId: Utils.getStore("user").userId,
-  email: Utils.getStore("user").email,
+  email: "",
   //studentId: stuId,
 });
 
@@ -45,7 +45,8 @@ const saveAccReq = () => {
     type: accRequest.value.type,
     semester: accRequest.value.semester,
     status: accRequest.value.status,
-    studentId: stuId
+    studentId: stuId,
+    email: Utils.getStore("user").email
     
   };
   console.log(data);
