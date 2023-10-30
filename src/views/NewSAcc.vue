@@ -56,8 +56,8 @@ const saveAccReq = () => {
       router.push({ path: `/${Utils.getStore("user").permission}` });
     })
     .catch((e) => {
-      //console.log(e);
-      message.value = e.response.data.message;
+      console.log(e);
+      //message.value = e.response.data.message;
     });
 };
 
