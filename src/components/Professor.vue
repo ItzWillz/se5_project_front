@@ -23,7 +23,7 @@ const retrieveStudent = () => {
 
 retrieveStudent();
 
-const viewStudent = () => {
+const viewStudentAcc = () => {
   if (!selectedStudent.value) {
     console.error('Error: No course selected.');
     return;
@@ -51,7 +51,7 @@ const viewStudent = () => {
     <div style="margin-top: 7rem"> 
       <h1 style="text-align: center;">Actions</h1>
       <div class="row">
-       <button @click="viewStudent(student)">View</button>
+       <button @click="viewStudentAcc(student)">View</button>
       </div>
       </div>
 

@@ -10,7 +10,7 @@ import StudentUpdate from "./views/UpdateSAcc.vue";
 import SearchStudent from "./views/SearchStudent.vue";
 import AdminUpdate from "./views/UpdateAAcc.vue";
 import NewRequest from "./views/NewSAcc.vue";
-import ViewAcc from "./views/ViewAcc.vue";
+import ViewAcc from "./views/ViewSAcc.vue";
 import ViewStudent from "./views/ViewStudent.vue";
 import CourseSchedule from "./views/ViewCourseSchedule.vue";
 

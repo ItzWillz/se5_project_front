@@ -6,8 +6,20 @@
   import studentServices from "../services/studentServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
+  // import modal from '../components/Modal.vue';
+
+
 
   let isVisible = ref(false);
+
+  function okfn() {
+    setTimeout(() => {
+      console.log("yes");
+      //send data for request
+
+      isVisible.value = false;    
+    }, 1000)
+    }
 
 
  const valid = ref(false);
@@ -68,15 +80,21 @@ const returnHome = () => {
 </script>
 
 <template>
- <Modal v-model:visible="isVisible">
-  <div>
+ <Modal v-model:visible="isVisible" title="Agreement Form"  
+ :okButton="{
+        text: 'Yes',
+        onclick: okfn,
+        loading: true,
+        
+      }">
+ 
   <p>By clicking yes you agree to sharing your information to the 
   accommodation department</p>
-  <button>Yes</button>
-  <button>No</button>
-
-  </div>
-  </Modal>
+    </Modal>
+   <!-- <Modal
+      v-model:visible="isVisible"
+      @close="closeModal"
+    /> -->
 <div style="background-color: maroon; width 100%; height:50px; display:block;">
       <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">New Request</h1>
       </div>
@@ -122,6 +140,7 @@ const returnHome = () => {
             <h3>Documents:</h3>
             <v-row>
             <v-col cols="auto">
+            <!-- <v-btn v-on:click="isVisible=true">Agreement Form</v-btn> -->
             <v-btn v-on:click="isVisible=true">Agreement Form</v-btn>
             </v-col>
             <v-col cols="auto">
@@ -149,10 +168,5 @@ const returnHome = () => {
   </template>
 
 <style>
-.text-wrap{
-  height: 200;
-  max-height: 200px;
-  overflow-y:auto;
-  word-wrap: break-word;
-}
+
 </style>
