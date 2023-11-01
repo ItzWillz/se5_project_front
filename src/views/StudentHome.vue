@@ -1,21 +1,39 @@
 <script setup>
 import Utils from "../config/utils";
 import { useRouter } from "vue-router";
+import accReqServices from "../services/accReqServices";
+import studentServices from "../services/studentServices";
+import stuAccServices from "../services/stuaccommodationServices";
 
 const router = useRouter();
 
 const user = Utils.getStore("user")
-console.log(user)
 
-// import { ref, onMounted } from "vue";
+ import { ref, onMounted } from "vue";
+ import Listbox from "primevue/listbox";
 
-// const selectedAcc = ref();
-// const accomadation = ref([]);
+ const selectedAcc = ref();
+ const accReq = ref([]);
+ const selectedStuAcc = ref();
+ const stuAcc = ref([]);
 
-const retrieveAcc = () => {
-  accServices.getAll()
+
+let stuId = null;
+
+studentServices.getStudentIdByUserId(Utils.getStore("user").userId)
+.then((response) => {
+  stuId = response.data.id
+  retrieveAccReq();
+  retrieveStuAcc();
+}).catch((e) => {
+  console.log(e)
+});
+
+const retrieveAccReq = () => {
+  accReqServices.getAllForUser(stuId)
     .then((response) => {
-      accomadation.value = response.data;
+      console.log(response.data)
+      accReq.value = response.data;
     })
     .catch((e) => {
         console.log(e);
@@ -23,7 +41,22 @@ const retrieveAcc = () => {
     });
 };
 
-//retrieveAcc();
+const display = (accReq) => accReq.type + " " + accReq.semester;
+
+
+const retrieveStuAcc = () => {
+  stuAccServices.getAllForUser(stuId)
+    .then((response) => {
+      console.log(response.data)
+      stuAcc.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    //   message.value = e.response.data.message;
+    });
+};
+
+const studisplay = (stuAcc) => stuAcc.accommodationId + " " + stuAcc.semester;
 
 // const deleteAcc = () => {
 //   accServices.delete(selectedAcc.value)
@@ -75,30 +108,50 @@ const newAcc =() => {
     <v-toolbar>
       <v-toolbar-title>Welcome, {{user.fName}}! </v-toolbar-title>
     </v-toolbar>
-
- <div class="column">    
-        <h2>Current Accomadations</h2>
-<div class="card flex justify-content-center">
-        <Listbox v-model="selectedAcc"  :options='accomadation' filter optionLabel= 'name' optionValue="accomadationNum" 
+<v-row>
+<v-col>
+          <h2>Accomadation Requests</h2>
+        <Listbox v-model="selectedAcc"  :options='accReq' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
-    </div>
+</v-col>
+
+<v-col>
  
     <div style="margin-top: 0.1rem"> 
       <h2 style="text-align: center;">Actions</h2>
+            <div style="margin-left: 150px;">
       <div class="row">
        <button class=test @click="newAcc()">Request New </button>
       <button class=test @click="updateAcc(accomadation)"> Request changes </button>
 
       </div>
+            </div>
+      </div>
+</v-col>
+</v-row>
+ 
+
+ <v-row>
+<v-col>    
+        <h2>Current Accommodations</h2>
+        <Listbox v-model="selectedStuAcc"  :options='stuAcc' filter :optionLabel= 'studisplay' optionValue="id" 
+        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+
+</v-col>
+ 
+ <v-col>
+    <div style="margin-top: 0.1rem"> 
+      <h2 style="text-align: center;">Actions</h2>
+      <div style="margin-left: 220px;">
 
       <div class="row" >
        <button class=test @click="viewAcc(accomadation)">View</button>
 
       </div>
       </div>
- </div>
-
-        
+      </div>
+ </v-col>
+ </v-row>
   </v-container>
 </template>
