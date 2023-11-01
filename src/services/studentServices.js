@@ -5,3 +5,4 @@ export default {
     return apiClient.get("/student/" + userId);
   },
 };
+

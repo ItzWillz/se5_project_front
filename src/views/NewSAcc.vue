@@ -3,6 +3,7 @@
 
   import { Modal } from 'usemodal-vue3';
   import accReqServices from "../services/accReqServices";
+  import studentServices from "../services/studentServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
 
@@ -12,6 +13,15 @@
  const valid = ref(false);
   const router = useRouter();
   const message = ref("");
+
+  let stuId = null;
+
+studentServices.getStudentIdByUserId(Utils.getStore("user").userId)
+.then((response) => {
+  stuId = response.data.id
+}).catch((e) => {
+  console.log(e)
+});
 
   const accRequest = ref({
   /*id: null,*/
@@ -23,7 +33,10 @@
   type: "",
   status: "Pending",
   studentId: Utils.getStore("user").userId,
+  email: "",
+  //studentId: stuId,
 });
+
 
 const saveAccReq = () => {
   const data = {
@@ -32,7 +45,8 @@ const saveAccReq = () => {
     type: accRequest.value.type,
     semester: accRequest.value.semester,
     status: accRequest.value.status,
-    studentId: accRequest.value.studentId
+    studentId: stuId,
+    email: Utils.getStore("user").email
     
   };
   console.log(data);
@@ -43,16 +57,14 @@ const saveAccReq = () => {
       router.push({ path: `/${Utils.getStore("user").permission}` });
     })
     .catch((e) => {
-      //console.log(e);
-      message.value = e.response.data.message;
+      console.log(e);
+      //message.value = e.response.data.message;
     });
 };
 
 const returnHome = () => {
   router.push({ path: `/${Utils.getStore("user").permission}` });
 };
-
-
 </script>
 
 <template>

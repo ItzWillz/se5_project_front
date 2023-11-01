@@ -18,6 +18,7 @@
     "eslint": "^8.28.0",
     "eslint-plugin-vue": "^9.7.0",
     "primevue": "^3.38.1",
+    "nodemailer": "^6.9.7",
     "usemodal-vue3": "^0.3.7",
     "vite-plugin-vuetify": "^1.0.0",
     "vue": "^3.2.47",
