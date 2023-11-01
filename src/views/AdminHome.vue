@@ -9,10 +9,17 @@ const user = Utils.getStore("user")
 
 import { ref, onMounted } from "vue";
 import accReqServices from "../services/accReqServices";
+import accServices from "../services/accommodationServices";
+import stuAccServices from "../services/stuaccommodationServices";
 
  const selectedAcc = ref();
  const accReq = ref([]);
+
+ const selectedAcAcc = ref();
  const acc = ref([]);
+
+ const selectedStuAcc = ref();
+ const stuAcc = ref([]);
 
 const retrieveAccReq = () => {
   accReqServices.getAll()
@@ -25,7 +32,6 @@ const retrieveAccReq = () => {
     });
 };
 
-console.log(accReq.value);
 retrieveAccReq();
 
  const display = (accReq) => accReq.studentId + " " +accReq.type + " " + accReq.semester;
@@ -41,10 +47,26 @@ retrieveAccReq();
     });
 };
 
-console.log(acc.value);
 retrieveAccReq();
 
- const displayAcc = (accReq) => accReq.studentId + " " +accReq.type + " " + accReq.semester;
+ const displayAcc = (acc) => acc.type;
+
+  const retrieveStuAcc = () => {
+  stuAccServices.getAll()
+    .then((response) => {
+      stuAcc.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    //   message.value = e.response.data.message;
+    });
+};
+
+retrieveStuAcc();
+
+ const displayStuAcc = (stuAcc) => stuAcc.studentId + " " + stuAcc.semester + " " + stuAcc.accommodationId;
+
+ 
 
 // const deleteAcc = () => {
 //   accServices.delete(selectedAcc.value)
@@ -110,15 +132,38 @@ const viewAcc = () => {
  </div>
 
  <div class="column">    
-        <h2>Current Accomadations</h2>
+        <h2>Current Student Accomadations</h2>
 <div class="card flex justify-content-center">
-        <Listbox v-model="selectedAcc"  :options='acc' filter :optionLabel= 'displayAcc' optionValue="id" 
+        <Listbox v-model="selectedStuAcc"  :options='stuAcc' filter :optionLabel= 'displayStuAcc' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
     </div>
  
     <div style="margin-top: 0.1rem"> 
       <h2 style="text-align: center;">Actions</h2>
+      <div class="row">
+      <button class=test @click="updateAcc()"> Edit Accommodation </button>
+      </div>
+      <div class="row" >
+       <button class=test @click="viewAcc()">View</button>
+      </div>
+      </div>
+ </div>
+
+
+ <div class="column">    
+        <h2>Current Accomadations</h2>
+<div class="card flex justify-content-center">
+        <Listbox v-model="selectedAcAcc"  :options='acc' filter :optionLabel= 'displayAcc' optionValue="id" 
+        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+
+    </div>
+ 
+    <div style="margin-top: 0.1rem"> 
+      <h2 style="text-align: center;">Actions</h2>
+      <div class="row">
+      <button class=test @click="updateAcc()"> Create Accommodation </button>
+      </div>
       <div class="row">
       <button class=test @click="updateAcc()"> Edit Accommodation </button>
       </div>

@@ -2,25 +2,25 @@ import apiClient from "./services.js";
 
 export default {
   getAll() {
-    return apiClient.get("/accom");
+    return apiClient.get("/stucom");
   },
   getAllForUser(userId) {
-    return apiClient.get("/accom/" + userId);
+    return apiClient.get(`/stucom/${userId}`);
   },
   get(id) {
-    return apiClient.get(`/accom/${id}`);
+    return apiClient.get(`/stucom/${id}`);
   },
   create(data) {
-    return apiClient.post("/accom", data);
+    return apiClient.post("/stucom", data);
   },
   update(id, data) {
-    return apiClient.put(`/accom/${id}`, data);
+    return apiClient.put(`/stucom/${id}`, data);
   },
   delete(id) {
-    return apiClient.delete(`/accom/${id}`);
+    return apiClient.delete(`/stucom/${id}`);
   },
   deleteAll() {
-    return apiClient.delete(`/accom`);
+    return apiClient.delete(`/stucom`);
   },
   // findByTitle(title) {
   //   return apiClient.get(`/accReq?title=${title}`);
