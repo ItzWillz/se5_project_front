@@ -24,32 +24,31 @@ const returnHome = () => {
 
 <template>
 <div style="background-color: maroon; width 100%; height:50px; display:block;">
-      <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">Update / Approve</h1>
+      <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">View Student Accomadation</h1>
       </div>
-<h1>Accomadation Name</h1>
     <v-form v-model="valid" style="padding-top:50px;">
 
 
       <v-container>
 
-        <v-row>
-            <v-col>
-            <v-text-field v-model="accomadation.name" label="Accomadation Name:" hide-details readonly=""></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row>
+         <v-row>
           <v-col  cols="12"  md="4">
-            <v-select v-model="accomadation.type" id="type" label="Type:" hide-details readonly=""></v-select>
-          </v-col>
-  
-          <v-col cols="12" md="4" >
-          <v-select v-model="accomadation.course" label="Class:" readonly="" > </v-select>
-          </v-col>
+            <v-select v-model="accRequest.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom',]" required hide-details
+            ></v-select>
+            </v-col>
 
-            <v-col cols="12" md="4" >
-            <v-text-field v-model="course.professor" label="Professor:" hide-details readonly=""></v-text-field>
-          </v-col>
+            <v-col  cols="12"  md="4">
+            
+            <v-select v-model="accRequest.semester" id="semester" label="Semester  :" :items="['Fall23','Winter23', 'Spring24', 'Summer24',]" required hide-details
 
+            ></v-select>
+          </v-col>
+        </v-row>
+          <v-row>
+            <v-col  cols="12"  md="4">
+              <v-text-field v-model="accRequest.body" id="body" label="Notes" :counter="50" required hide-details 
+            ></v-text-field>
+            </v-col> 
               </v-row>
 
         <v-row>
@@ -69,11 +68,3 @@ const returnHome = () => {
     </v-form>
   </template>
 
-<style>
-.text-wrap{
-  height: 200;
-  max-height: 200px;
-  overflow-y:auto;
-  word-wrap: break-word;
-}
-</style>
