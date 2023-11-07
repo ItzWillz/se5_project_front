@@ -146,7 +146,6 @@ const viewAcc = () => {
        <button class=test @click="SearchStudent()">View All Students</button>
        <button class=test @click="AccomadationType()">View Accomadation Types</button>
       </div>
-      </div>
  </div>
 
 
