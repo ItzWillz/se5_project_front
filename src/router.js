@@ -2,7 +2,10 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Utils from "./config/utils"
 
 import Login from "./views/Login.vue";
-
+import AddAcc from "./views/AddAcc.vue";
+import EditAcc from "./views/EditAcc.vue";
+import ViewAcc from "./views/AddAcc.vue";
+import AccomidationType from "./views/AccomidationType.vue";
 import AdminHome from "./views/AdminHome.vue";
 import FacultyHome from "./views/FacultyHome.vue";
 import StudentHome from "./views/StudentHome.vue";
@@ -10,8 +13,9 @@ import StudentUpdate from "./views/UpdateSAcc.vue";
 import SearchStudent from "./views/SearchStudent.vue";
 import AdminUpdate from "./views/UpdateAAcc.vue";
 import NewRequest from "./views/NewSAcc.vue";
-import ViewAcc from "./views/ViewSAcc.vue";
+import ViewSAcc from "./views/ViewSAcc.vue";
 import ViewStudent from "./views/ViewStudent.vue";
+import ViewFS from "./views/ViewFacultyStudent.vue";
 import CourseSchedule from "./views/ViewCourseSchedule.vue";
 
 const router = createRouter({
@@ -74,9 +78,31 @@ const router = createRouter({
       props: true,
     },
     {
+      path: "/accType",
+      name: "accType",
+      component: AccomidationType,
+      
+    },
+    {
       path: "/search",
       name: "search",
       component: SearchStudent,
+    },
+    {
+      path: "/AddAcc",
+      name: "AddAcc",
+      component: AddAcc,
+    },
+    {
+      path: "/EditAcc",
+      name: "EditAcc",
+      component: EditAcc,
+      props: true,
+    },
+    {
+      path: "/ViewAcc",
+      name: "ViewAcc",
+      component: ViewAcc,
     },
     {
       path: "/view/:id",
@@ -85,9 +111,15 @@ const router = createRouter({
       props: true,
     },
     {
-      path: "/viewAcc/:id",
-      name: "viewAcc",
-      component: ViewAcc,
+      path: "/viewSAcc/:id",
+      name: "viewSAcc",
+      component: ViewSAcc,
+      props: true,
+    },
+    {
+      path: "/viewFS/:id",
+      name: "viewFS",
+      component: ViewFS,
       props: true,
     },
     {

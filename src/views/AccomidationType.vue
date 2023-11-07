@@ -25,42 +25,31 @@ const retrieveAcc = () => {
 
 //retrieveAcc();
 
-// const deleteAcc = () => {
-//   accServices.delete(selectedAcc.value)
-//     .finally(() => {
-//         router.go();
-//     });
-// };
-    
-const newAcc =() => {
-     router.push({ name: 'add'});
+const deleteAcc = () => {
+  accServices.delete(selectedAcc.value)
+    .finally(() => {
+        router.go();
+    });
 };
 
-const SearchStudent =() => {
-   router.push({ name: 'search' });
+const EditAcc =() => {
+   router.push({ name: 'EditAcc', params: { id: selectedAcc.value }  });
 
 }
 
-const AccomadationType =() => {
-   router.push({ name: 'accType' });
+const AddAcc =() => {
+   router.push({ name: 'AddAcc' });
 
 }
 
-// const updateAcc =() => {
-//   if (!selectedAcc.value) {
-//     console.error('Error: No course selected.');
-//     return;
-//   }
-//   router.push({ name: 'studentupdate', params: { id: selectedAcc.value } });
-// };
 
-// const viewAcc = () => {
-//   if (!selectedAcc.value) {
-//     console.error('Error: No course selected.');
-//     return;
-//   }
-//   router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
-// };
+const viewAcc = () => {
+  if (!selectedAcc.value) {
+    console.error('Error: No course selected.');
+    return;
+  }
+  router.push({ name: 'ViewAcc', params: { id: selectedAcc.value } });
+};
 
 </script>
 
@@ -82,12 +71,10 @@ const AccomadationType =() => {
 </style>
 <template>
  <v-container>
-    <v-toolbar>
-      <v-toolbar-title>Welcome, {{user.fName}}! </v-toolbar-title>
-    </v-toolbar>
+  
 
  <div class="column">    
-        <h2>Current Accomadations</h2>
+        <h2>Current Accomadation Types</h2>
 <div class="card flex justify-content-center">
         <Listbox v-model="selectedAcc"  :options='accomadation' filter optionLabel= 'name' optionValue="accomadationNum" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
@@ -97,15 +84,15 @@ const AccomadationType =() => {
     <div style="margin-top: 0.1rem"> 
       <h2 style="text-align: center;">Actions</h2>
       <div class="row">
-       <button class=test @click="newAcc()">Request New </button>
-      <button class=test @click="updateAcc(accomadation)"> Request changes </button>
+       <button class=test @click="AddAcc()">Create New</button>
+      <button class=test @click="EditAcc(accomadation)"> Edit </button>
 
       </div>
 
       <h2 style="text-align: center;">Other Actions</h2>
       <div class="row" >
-       <button class=test @click="SearchStudent()">View All Students</button>
-       <button class=test @click="AccomadationType()">View Accomadation Types</button>
+       <button class=test @click="viewAcc(accomadation)">View</button>
+       <button class=test @click="deleteAcc(accomadation)">Delete</button>
       </div>
       </div>
  </div>
