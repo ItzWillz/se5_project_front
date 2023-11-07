@@ -26,21 +26,38 @@ const returnHome = () => {
 <template>
 
 <div style="background-color: maroon; width 100%; height:50px; display:block;">
-      <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">View Accomadation Type</h1>
+      <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">View Student Accomadation</h1>
       </div>
     <v-form v-model="valid" style="padding-top:20px;">
 
 
       <v-container>
            
-
-          <v-row>
+             <v-row>
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.name" id="name" label="Name" :counter="50" required hide-details readonly=""
+              <v-text-field v-model="student.name" id="studentName" label="Student Name " :counter="50" required hide-details readonly=""
             ></v-text-field>
             </v-col> 
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.body" id="body" label="Description" :counter="500" required hide-details readonly=""
+              <v-text-field v-model="student.id" id="studentId" label=" Student ID" :counter="500" required hide-details readonly=""
+            ></v-text-field>
+            </v-col> 
+              </v-row>
+
+
+          <v-row>
+            <v-col  cols="12"  md="4">
+              <v-text-field v-model="acc.type" id="type" label="type" :counter="50" required hide-details readonly=""
+            ></v-text-field>
+            </v-col> 
+            <v-col  cols="12"  md="4">
+              <v-text-field v-model="acc.semester" id="semester" label="semester" :counter="50" required hide-details readonly=""
+            ></v-text-field>
+            </v-col> 
+              </v-row>
+               <v-row>
+            <v-col  cols="12"  md="4">
+              <v-text-field v-model="acc.body" id="body" label="Notes" :counter="500" required hide-details 
             ></v-text-field>
             </v-col> 
               </v-row>
@@ -55,7 +72,3 @@ const returnHome = () => {
       </v-container>
     </v-form>
   </template>
-
-<style>
-
-</style>
