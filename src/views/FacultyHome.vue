@@ -2,6 +2,7 @@
 import Utils from "../config/utils";
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
+import facultyServices from "../services/facultyServices.js";
 
 const router = useRouter();
 
@@ -22,6 +23,27 @@ const retrieveStudent = () => {
     //   message.value = e.response.data.message;
     });
 };
+
+let facultyId = null;
+let students = null;
+
+facultyServices.getFacultyIdByUserId(Utils.getStore("user").userId)
+.then((response) => {
+  facultyId = response.data.id
+
+  facultyServices.getAllStudentsForFaculty(facultyId)
+  .then((response) => {
+  students = response.data
+  console.log(students)
+}).catch((e) => {
+  console.log(e)
+});
+
+}).catch((e) => {
+  console.log(e)
+});
+
+</script>
 
 retrieveStudent();
 
@@ -57,6 +79,5 @@ const viewStudentAcc = () => {
       </div>
       </div>
 
-        
   </v-container>
 </template>

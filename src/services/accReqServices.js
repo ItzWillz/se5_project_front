@@ -4,8 +4,9 @@ export default {
   getAll() {
     return apiClient.get("/accReq");
   },
-  getAllForUser(userId) {
-    return apiClient.get("/accReq/" + userId);
+  // This current looks for the id based on primary key not student Id. How Fix?
+  getAllForUser(stuId) {
+    return apiClient.get(`/accReq/${stuId}`);
   },
   get(id) {
     return apiClient.get(`/accReq/${id}`);
