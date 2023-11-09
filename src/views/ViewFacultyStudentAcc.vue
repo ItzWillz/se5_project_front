@@ -1,8 +1,8 @@
 <script setup>
   import { ref } from "vue";
   import { Modal } from 'usemodal-vue3';
-  import accReqServices from "../services/accReqServices";
   import studentServices from "../services/studentServices";
+  import accStuServices from "../services/stuaccommodationServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
 
@@ -10,12 +10,28 @@
  const valid = ref(false);
   const router = useRouter();
   const message = ref("");
+  
+  const acc = ref([]);
 
 
-  const acc = ref({
-  body: "",
-  name: "",
+const props = defineProps({
+  id: {
+    required: true,
+  },
 });
+
+const retrieveStudentAcc = () => {
+  accStuServices.get(props.id)
+    .then((response) => {
+      acc.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+};
+
+retrieveStudentAcc();
+
 
 
 const returnHome = () => {
