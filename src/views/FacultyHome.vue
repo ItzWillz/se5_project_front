@@ -3,29 +3,15 @@ import Utils from "../config/utils";
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import facultyServices from "../services/facultyServices.js";
+import Listbox from "primevue/listbox";
 
 const router = useRouter();
 
 const user = Utils.getStore("user")
-console.log(user)
 
 const selectedStudent = ref();
-
-const student = ref([]);
-
-const retrieveStudent = () => {
-  accServices.getAll()
-    .then((response) => {
-      student.value = response.data;
-    })
-    .catch((e) => {
-        console.log(e);
-    //   message.value = e.response.data.message;
-    });
-};
-
 let facultyId = null;
-let students = null;
+let students = ref([]);
 
 facultyServices.getFacultyIdByUserId(Utils.getStore("user").userId)
 .then((response) => {
@@ -33,7 +19,7 @@ facultyServices.getFacultyIdByUserId(Utils.getStore("user").userId)
 
   facultyServices.getAllStudentsForFaculty(facultyId)
   .then((response) => {
-  students = response.data
+  students.value = response.data
   console.log(students)
 }).catch((e) => {
   console.log(e)
@@ -43,9 +29,7 @@ facultyServices.getFacultyIdByUserId(Utils.getStore("user").userId)
   console.log(e)
 });
 
-</script>
-
-retrieveStudent();
+const display = (students) => students.name + " " + students.id;
 
 const viewStudentAcc = () => {
   if (!selectedStudent.value) {
@@ -60,13 +44,13 @@ const viewStudentAcc = () => {
 <template>
   <v-container>
     <v-toolbar>
-      <v-toolbar-title>Welcome, {{user}}! </v-toolbar-title>
+      <v-toolbar-title>Welcome, {{user.fName}}! </v-toolbar-title>
     </v-toolbar>
 
  <div class="column">    
     <h3>Students with Accommodations</h3>
 <div class="card flex justify-content-center">
-        <Listbox v-model="selectedStudent"  :options='student' filter optionLabel= 'name' optionValue="StudentNum" 
+        <Listbox v-model="selectedStudent"  :options='students' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
     </div>
@@ -75,7 +59,7 @@ const viewStudentAcc = () => {
     <div style="margin-top: 7rem"> 
       <h1 style="text-align: center;">Actions</h1>
       <div class="row">
-       <button @click="viewStudentAcc(student)">View</button>
+       <button @click="viewStudentAcc(selectedStudent)">View</button>
       </div>
       </div>
 
