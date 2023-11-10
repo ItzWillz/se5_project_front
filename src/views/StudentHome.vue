@@ -16,6 +16,7 @@ const user = Utils.getStore("user")
  const accReq = ref([]);
  const selectedStuAcc = ref();
  const stuAcc = ref([]);
+ const activeTab = ref('requests');
 
 
 let stuId = null;
@@ -104,54 +105,81 @@ const newAcc =() => {
   }
 </style>
 <template>
- <v-container>
+  <v-container>
     <v-toolbar>
-      <v-toolbar-title>Welcome, {{user.fName}}! </v-toolbar-title>
+      <v-toolbar-title>Welcome, {{ user.fName }}!</v-toolbar-title>
     </v-toolbar>
-<v-row>
-<v-col>
-          <h2>Accomadation Requests</h2>
-        <Listbox v-model="selectedAcc"  :options='accReq' filter :optionLabel= 'display' optionValue="id" 
-        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
-</v-col>
+    <v-tabs v-model="activeTab">
+      <v-tab value="requests">
+        <template v-slot:default>
+          <div class="tab-label">Accommodation Requests</div>
+        </template>
+      </v-tab>
+      <v-tab value="accommodations">
+        <template v-slot:default>
+          <div class="tab-label">Current Accommodations</div>
+        </template>
+      </v-tab>
+    </v-tabs>
 
-<v-col>
- 
-    <div style="margin-top: 0.1rem"> 
-      <h2 style="text-align: center;">Actions</h2>
+    <v-tab-item v-if="activeTab === 'requests'">
+      <v-row>
+        <v-col>
+          <h2>Accommodation Requests</h2>
+          <Listbox
+            v-model="selectedAcc"
+            :options="accReq"
+            filter
+            :optionLabel="display"
+            optionValue="id"
+            :virtualScrollerOptions="{ itemSize: 38 }"
+            class="w-full md:w-14rem"
+            listStyle="height: 450px"
+          />
+        </v-col>
+
+        <v-col>
+          <div style="margin-top: 0.1rem">
+            <h2 style="text-align: center;">Actions</h2>
             <div style="margin-left: 150px;">
-      <div class="row">
-       <button class=test @click="newAcc()">Request New </button>
-      <button class=test @click="updateAcc(accomadation)"> Request changes </button>
-
-      </div>
+              <div class="row">
+                <button class="test" @click="newAcc()">Request New</button>
+                <button class="test" @click="updateAcc(accommodation)">Request changes</button>
+              </div>
             </div>
-      </div>
-</v-col>
-</v-row>
- 
+          </div>
+        </v-col>
+      </v-row>
+    </v-tab-item>
 
- <v-row>
-<v-col>    
-        <h2>Current Accommodations</h2>
-        <Listbox v-model="selectedStuAcc"  :options='stuAcc' filter :optionLabel= 'studisplay' optionValue="id" 
-        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+    <v-tab-item v-if="activeTab === 'accommodations'">
+      <v-row>
+        <v-col>
+          <h2>Current Accommodations</h2>
+          <Listbox
+            v-model="selectedStuAcc"
+            :options="stuAcc"
+            filter
+            :optionLabel="studisplay"
+            optionValue="id"
+            :virtualScrollerOptions="{ itemSize: 38 }"
+            class="w-full md:w-14rem"
+            listStyle="height: 450px"
+          />
+        </v-col>
 
-</v-col>
- 
- <v-col>
-    <div style="margin-top: 0.1rem"> 
-      <h2 style="text-align: center;">Actions</h2>
-      <div style="margin-left: 220px;">
-
-      <div class="row" >
-       <button class=test @click="viewAcc(accomadation)">View</button>
-
-      </div>
-      </div>
-      </div>
- </v-col>
- </v-row>
+        <v-col>
+          <div style="margin-top: 0.1rem">
+            <h2 style="text-align: center;">Actions</h2>
+            <div style="margin-left: 220px;">
+              <div class="row">
+                <button class="test" @click="viewAcc(accommodation)">View</button>
+              </div>
+            </div>
+          </div>
+        </v-col>
+      </v-row>
+    </v-tab-item>
   </v-container>
 </template>

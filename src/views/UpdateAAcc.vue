@@ -1,101 +1,94 @@
 <script setup>
-  import { ref } from "vue";
-  //import CourseServices from "../services/courseServices";
-  import { useRouter } from "vue-router";
+import Utils from "../config/utils";
+import { ref, onMounted } from "vue";
+import accReqServices from "../services/accReqServices";
+import { useRouter } from "vue-router";
+import studentServices from "../services/studentServices";
 
-  const router = useRouter();
-  const course = ref({});
-  const valid = ref(false);
-
-  const props = defineProps({
+const router = useRouter();
+const accReq = ref({});
+const studentInfo = ref({});
+const props = defineProps({
   id: {
     required: true,
   },
 });
 
-
 const returnHome = () => {
-  router.push({ path: "/" });
+  router.push({ path: `/${Utils.getStore("user").permission}` })
 };
 
-const editAcc = async () => {
-  const data = {
-    type: accomadation.value.type,
-    course: accomadation.value.course,
-    professor: course.value.professor,
-   
-  };
+const loadAccommodationRequest = async () => {
+  if (!Object.keys(accReq.value).length) {
+    try {
+      const response = await accReqServices.get(props.id);
+      accReq.value = response.data[0];
+      console.log(accReq.value)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+onMounted(loadAccommodationRequest);
+const acceptRequest = async () => {
   try {
-    const response = await AccServices.update(props.id, data);
-    accomadation.value.accomadationNum = response.data.id;
-    router.push({ name: "accomadation" });
-  } 
-  catch (e) {
-    console.log(e.response.data.message);
-    //message.value = e.response.data.message;
+    console.log("Request accepted");
+    router.push({ path: "/" });
+  } catch (error) {
+    console.error("Failed to accept request", error);
   }
 };
 
-
+const rejectRequest = async () => {
+  try {
+   studentInfo.value= await studentServices.getStudentByStudentId(accReq.value.studentId);
+   console.log(studentInfo.value.data.email)
+    let updatedData = accReq.value
+    updatedData.status= "Rejected";
+    await accReqServices.update(props.id,updatedData);
+    console.log(updatedData)
+    console.log("Request rejected");
+    router.push({ path: `/${Utils.getStore("user").permission}` })
+  } catch (error) {
+    console.error("Failed to reject request", error);
+  }
+};
 </script>
 
+
 <template>
-<div style="background-color: maroon; width 100%; height:50px; display:block;">
-      <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">Update / Approve</h1>
-      </div>
-<h1>Accomadation Name</h1>
-    <v-form v-model="valid" style="padding-top:50px;">
+  <v-container>
+    <v-card>
+      <v-card-title class="headline">
+        Accommodation Request Edit
+      </v-card-title>
+      <v-card-text>
+        <v-form>
+          <v-text-field
+            label="Body"
+            v-model="accReq.studentId"
+            readonly
+          ></v-text-field>
+          <v-text-field
+            label="Status"
+            v-model="accReq.status"
+            readonly
+          ></v-text-field>
+          <v-text-field
+            label="Semester"
+            v-model="accReq.semester"
+            readonly
+          ></v-text-field>
+        </v-form>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="acceptRequest" color="success">Accept</v-btn>
+        <v-btn @click="rejectRequest" color="error">Reject</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-container>
+</template>
 
-
-      <v-container>
-
-        <v-row>
-            <v-col>
-            <v-text-field v-model="accomadation.name" label="Accomadation Name:" hide-details required></v-text-field>
-            </v-col>
-        </v-row>
-        <v-row>
-          <v-col  cols="12"  md="4">
-            <v-select v-model="accomadation.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom',]" required hide-details
-            ></v-select>
-          </v-col>
-  
-          <v-col cols="12" md="4" >
-          <v-select v-model="accomadation.course" label="Class:" :items="['0','1', '2', '3', '4',]" > </v-select>
-          </v-col>
-
-            <v-col cols="12" md="4" >
-            <v-text-field v-model="course.professor" label="Professor:" hide-details readonly=""></v-text-field>
-          </v-col>
-
-              </v-row>
-
-        <v-row>
-          <v-col cols="12" >
-            <h3>Documents:</h3>
-            <v-row>
-            <v-col cols="auto">
-            <v-button>Upload</v-button>
-            </v-col>
-            <v-col cols="auto">
-            <v-button>Delete</v-button>
-            </v-col>
-            </v-row>
-            <Listbox v-model="selectedfile"  :options='files' filter optionLabel= 'name' optionValue="fileNum" />
-          </v-col>
-        </v-row>
-
-        <v-row>
-            <v-col cols="auto">
-            <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="editAcc()">
-             Update/Approve </v-btn>
-            <v-btn  block class="text-none mb-4"   color="#AD1212"  variant="flat" @click="returnHome">
-             Reject </v-btn>
-            </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
-  </template>
 
 <style>
 .text-wrap{

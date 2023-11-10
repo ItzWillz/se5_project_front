@@ -34,7 +34,7 @@ const retrieveAccReq = () => {
 
 retrieveAccReq();
 
- const display = (accReq) => accReq.studentId + " " +accReq.type + " " + accReq.semester;
+ const display = (accReq) => accReq.studentId + " " +accReq.type + " " + accReq.semester+ " ";
 
  const retrieveAcc = () => {
   accServices.getAll()
@@ -47,7 +47,7 @@ retrieveAccReq();
     });
 };
 
-retrieveAccReq();
+//retrieveAccReq();
 
  const displayAcc = (acc) => acc.type;
 
@@ -98,7 +98,7 @@ const viewAcc = () => {
     console.error('Error: No course selected.');
     return;
   }
-  router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
+  router.push({ name: 'viewAcc', params: { id: selectedAcc.id } });
 };
 
 </script>
