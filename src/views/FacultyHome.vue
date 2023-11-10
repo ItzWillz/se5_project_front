@@ -43,8 +43,6 @@ facultyServices.getFacultyIdByUserId(Utils.getStore("user").userId)
   console.log(e)
 });
 
-</script>
-
 retrieveStudent();
 
 const viewStudentAcc = () => {
