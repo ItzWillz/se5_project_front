@@ -41,7 +41,7 @@ const viewStudentAcc = () => {
     console.error('Error: No course selected.');
     return;
   }
-  router.push({ name: 'viewSAcc', params: { id: selectedStudentAcc.value } });
+  router.push({ name: 'viewFSA', params: { id: selectedStudentAcc.value } });
 };
 
 </script>

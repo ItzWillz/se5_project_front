@@ -16,6 +16,7 @@ import NewRequest from "./views/NewSAcc.vue";
 import ViewSAcc from "./views/ViewSAcc.vue";
 import ViewStudent from "./views/ViewStudent.vue";
 import ViewFS from "./views/ViewFacultyStudent.vue";
+import ViewFSA from "./views/ViewFacultyStudentAcc.vue";
 import CourseSchedule from "./views/ViewCourseSchedule.vue";
 
 const router = createRouter({
@@ -121,6 +122,12 @@ const router = createRouter({
       name: "viewFS",
       component: ViewFS,
       props: true,
+    },
+    {
+    path: "/viewFSA/:id",
+    name: "viewFSA",
+    component: ViewFSA,
+    props: true,
     },
     {
       path: "/courseSchedule/:id",

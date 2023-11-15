@@ -1,8 +1,8 @@
 <script setup>
   import { ref } from "vue";
   import { Modal } from 'usemodal-vue3';
-  import studentServices from "../services/studentServices";
   import accStuServices from "../services/stuaccommodationServices";
+  import accServices from "../services/accommodationServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
 
@@ -10,8 +10,8 @@
  const valid = ref(false);
   const router = useRouter();
   const message = ref("");
-  
-  const acc = ref([]);
+
+  const stuacc = ref([]);
 
 
 const props = defineProps({
@@ -20,10 +20,21 @@ const props = defineProps({
   },
 });
 
+console.log(props.id);
+
 const retrieveStudentAcc = () => {
   accStuServices.get(props.id)
     .then((response) => {
+      stuacc.value = response.data;
+      console.log(stuacc.value);
+      console.log(stuacc.value.accommodationId);
+     accServices.get(stuacc.value.accommodationId)
+    .then((response) => {
       acc.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    });
     })
     .catch((e) => {
         console.log(e);
@@ -33,6 +44,18 @@ const retrieveStudentAcc = () => {
 retrieveStudentAcc();
 
 
+
+const retrieveAcc = () => {
+  accServices.get(stuacc.accommodationId)
+    .then((response) => {
+      acc.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+};
+
+retrieveAcc();
 
 const returnHome = () => {
   router.push({ path: `/${Utils.getStore("user").permission}` });
@@ -49,6 +72,7 @@ const returnHome = () => {
 
       <v-container>
            
+           <!--
              <v-row>
             <v-col  cols="12"  md="4">
               <v-text-field v-model="student.name" id="studentName" label="Student Name " :counter="50" required hide-details readonly=""
@@ -58,7 +82,7 @@ const returnHome = () => {
               <v-text-field v-model="student.id" id="studentId" label=" Student ID" :counter="500" required hide-details readonly=""
             ></v-text-field>
             </v-col> 
-              </v-row>
+              </v-row> -->
 
 
           <v-row>
