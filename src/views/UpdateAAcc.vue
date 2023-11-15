@@ -34,7 +34,7 @@ const loadAccommodationRequest = async () => {
 };
 onMounted(loadAccommodationRequest);
 const acceptRequest = async () => {
-  const facultyEmail= "mauriceirakoze77@gmail.com"
+  const facultyEmail= "andrew.moyer@eagles.oc.edu"
   if(accReq.value.status.toLowerCase()=="pending"){
   try {
     studentInfo.value= await studentServices.getStudentByStudentId(accReq.value.studentId);
