@@ -171,6 +171,10 @@ const deleteRequest = async() => {
     });
 };
 
+const ReturnHome = () => {
+  router.push({ name: 'admin'});
+};
+
 </script>
 
 
@@ -198,6 +202,11 @@ const deleteRequest = async() => {
             readonly
           ></v-text-field>
           <v-text-field
+            label="Type"
+            v-model="accReq.type"
+            readonly
+          ></v-text-field>
+          <v-text-field
             label="Semester"
             v-model="accReq.semester"
             readonly
@@ -212,6 +221,7 @@ const deleteRequest = async() => {
       <v-card-actions>
         <v-btn @click="acceptRequest" color="success">Accept</v-btn>
         <v-btn @click="rejectRequest" color="error">Reject</v-btn>
+        <v-btn @click="ReturnHome()" >Back</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
