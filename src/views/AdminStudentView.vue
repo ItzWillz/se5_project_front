@@ -44,6 +44,13 @@ const viewStudentAcc = () => {
   router.push({ name: 'viewASA', params: { id: props.id, stuid: selectedStudentAcc.value } });
 };
 
+const deleteAcc = () => {
+  accServices.delete(selectedAcc.value)
+    .finally(() => {
+        router.go();
+    });
+};
+
 const Return = () => {
   router.push({ name: 'search'});
 };
@@ -65,6 +72,7 @@ const Return = () => {
       <h1 style="text-align: center;">Actions</h1>
           <div class="text-center">
        <button style="width:150px; height:60px" @click="viewStudentAcc(student)">View Accomodation</button>
+        <button style="width:150px; height:60px" @click="deleteAcc(accomadation)">Delete</button>
               </div>
        
       </v-col>

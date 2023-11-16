@@ -36,6 +36,10 @@ const deleteAcc = () => {
 };
 
 const EditAcc =() => {
+  if (!selectedAcc.value) {
+    console.error('Error: No course selected.');
+    return;
+  }
    router.push({ name: 'EditAcc', params: { id: selectedAcc.value }  });
 
 }
@@ -53,6 +57,16 @@ const viewAcc = () => {
   }
   router.push({ name: 'ViewAcc', params: { id: selectedAcc.value } });
 };
+
+const AdminHome =() => {
+   router.push({ name: 'admin' });
+
+}
+
+const SearchStudent =() => {
+   router.push({ name: 'search' });
+
+}
 
 </script>
 
@@ -89,13 +103,14 @@ const viewAcc = () => {
       <div class="row">
        <button class=test @click="AddAcc()">Create New</button>
       <button class=test @click="EditAcc(accomadation)"> Edit </button>
-
+       <button class=test @click="viewAcc(accomadation)">View</button>
+       <button class=test @click="deleteAcc(accomadation)">Delete</button>
       </div>
 
       <h2 style="text-align: center;">Other Actions</h2>
       <div class="row" >
-       <button class=test @click="viewAcc(accomadation)">View</button>
-       <button class=test @click="deleteAcc(accomadation)">Delete</button>
+       <button class=test @click="AdminHome()">View All Requests</button>
+       <button class=test @click="SearchStudent()">View Students</button>
       </div>
       </div>
  </div>

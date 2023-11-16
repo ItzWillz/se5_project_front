@@ -1,8 +1,7 @@
 <script setup>
   import { ref } from "vue";
   import { Modal } from 'usemodal-vue3';
-  import accReqServices from "../services/accReqServices";
-  import studentServices from "../services/studentServices";
+  import accServices from "../services/accommodationServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
 
@@ -13,33 +12,32 @@
 
 
   const acc = ref({
-  body: "",
-  name: "",
+  title: "",
+  description: "",
+  type: "",
 });
 
 
 const saveAcc = () => {
   const data = {
-    //schoolId: accRequest.value.schoolId,
-    body: acc.value.body,
-    name: acc.value.type,
-    
+    title: acc.value.title,
+    description: acc.value.description,
+    type: acc.value.type,
+   
   };
-  console.log(data);
-  accReqServices.create(data)
+  accServices.create(data)
     .then((response) => {
       acc.value.id = response.data.id;
       console.log("add " + response.data);
-      router.push({ path: `/${Utils.getStore("user").permission}` });
+      router.push({name: 'accType' });
     })
     .catch((e) => {
       console.log(e);
-      //message.value = e.response.data.message;
     });
 };
 
 const returnHome = () => {
-  router.push({ path: `/${Utils.getStore("user").permission}` });
+  router.push({ name: 'accType' });
 };
 </script>
 
@@ -52,21 +50,19 @@ const returnHome = () => {
 
 
       <v-container>
-           
-
-          <v-row>
+         <v-row>
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.name" id="name" label="Name" :counter="50" required hide-details 
+              <v-text-field v-model="acc.title" id="title" label="Title" :counter="50" required hide-details 
             ></v-text-field>
             </v-col> 
             <v-col  cols="12"  md="4">
-            <v-select v-model="accRequest.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom', 'MealPlan']" required hide-details
+            <v-select v-model="acc.type" id="type" label="Type:" :items="['Housing','Ethos', 'Academic', 'MealPlan']" required hide-details
             ></v-select>
             </v-col>
              </v-row>
             <v-row>
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.body" id="body" label="Description" :counter="500" required hide-details 
+              <v-text-field v-model="acc.description" id="description" label="Description" :counter="500" required hide-details 
             ></v-text-field>
             </v-col> 
               </v-row>

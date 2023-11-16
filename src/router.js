@@ -4,7 +4,7 @@ import Utils from "./config/utils"
 import Login from "./views/Login.vue";
 import AddAcc from "./views/AddAcc.vue";
 import EditAcc from "./views/EditAcc.vue";
-import ViewAcc from "./views/AddAcc.vue";
+import ViewAcc from "./views/ViewAcc.vue";
 import AccomidationType from "./views/AccomidationType.vue";
 import AdminHome from "./views/AdminHome.vue";
 import FacultyHome from "./views/FacultyHome.vue";
@@ -97,15 +97,16 @@ const router = createRouter({
       component: AddAcc,
     },
     {
-      path: "/EditAcc",
+      path: "/EditAcc/:id",
       name: "EditAcc",
       component: EditAcc,
       props: true,
     },
     {
-      path: "/ViewAcc",
+      path: "/ViewAcc/:id",
       name: "ViewAcc",
       component: ViewAcc,
+      props: true
     },
     {
       path: "/view/:id",

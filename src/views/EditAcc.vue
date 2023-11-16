@@ -1,8 +1,7 @@
 <script setup>
   import { ref } from "vue";
   import { Modal } from 'usemodal-vue3';
-  import accReqServices from "../services/accReqServices";
-  import studentServices from "../services/studentServices";
+  import accServices from "../services/accommodationServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
 
@@ -12,21 +11,37 @@
   const message = ref("");
 
 
-  const acc = ref({
-  body: "",
-  name: "",
+const props = defineProps({
+  id: {
+    required: true,
+  },
 });
+
+  const acc = ref([]);
+
+const retrieveAcc = () => {
+  accServices.get(props.id)
+    .then((response) => {
+      acc.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+};
+
+retrieveAcc();
 
 const editAcc = async () => {
   const data = {
-    name: acc.value.name,
-    body: acc.value.body,
+    title: acc.value.title,
+    description: acc.value.description,
+    type: acc.value.type,
    
   };
   try {
-    const response = await AccServices.update(props.id, data);
-    acc.value.accomadationNum = response.data.id;
-    router.push({ name: "accomadation" });
+    const response = await accServices.update(props.id, data);
+    acc.value.id = response.data.id;
+    router.push({ name: "accType" });
   } 
   catch (e) {
     console.log(e.response.data.message);
@@ -34,16 +49,9 @@ const editAcc = async () => {
   }
 };
 
-const deleteAcc = () => {
-  courseServices.delete(acc.value)
-    .finally(() => {
-        router.go();
-    });
-};
-
 
 const returnHome = () => {
-  router.push({ path: `/${Utils.getStore("user").permission}` });
+  router.push({ name: "accType" });
 };
 </script>
 
@@ -57,17 +65,17 @@ const returnHome = () => {
       <v-container>  
          <v-row>
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.name" id="name" label="Name" :counter="50" required hide-details 
+              <v-text-field v-model="acc.title" id="title" label="Title" :counter="50" required hide-details 
             ></v-text-field>
             </v-col> 
             <v-col  cols="12"  md="4">
-            <v-select v-model="accRequest.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom', 'MealPlan']" required hide-details
+            <v-select v-model="acc.type" id="type" label="Type:" :items="['Housing','Ethos', 'Academic', 'MealPlan']" required hide-details
             ></v-select>
             </v-col>
              </v-row>
             <v-row>
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.body" id="body" label="Description" :counter="500" required hide-details 
+              <v-text-field v-model="acc.description" id="description" label="Description" :counter="500" required hide-details 
             ></v-text-field>
             </v-col> 
               </v-row>
@@ -77,8 +85,6 @@ const returnHome = () => {
             <v-col class="text-right">
             <v-btn  style="margin-right:30px; margin-top:30px; color:white; width:200px; height:50px; font-size: 20px"  class="text-none mb-4" color="#AD1212"  variant="flat" @click="editAcc()">
              Submit </v-btn>
-             <v-btn  style="margin-right:30px; margin-top:30px; color:white; width:200px; height:50px; font-size: 20px"  class="text-none mb-4" color="#AD1212"  variant="flat" @click="deleteAcc()">
-             Delete </v-btn>
             <v-btn  style="margin-left:30px; margin-top:30px; color:white; width:200px; height:50px; font-size:20px" class="text-none mb-4"   color="#AD1212"  variant="flat" @click="returnHome()">
              Exit </v-btn>
             </v-col>
