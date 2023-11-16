@@ -7,5 +7,8 @@ export default {
   getAll() {
     return apiClient.get("/student");
   },
+  getStudentByStudentId(stuId) {
+    return apiClient.get("/student/std/" + stuId);
+  },
 };
 
