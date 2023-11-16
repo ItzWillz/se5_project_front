@@ -63,7 +63,7 @@ const Return = () => {
  <v-row style="margin-top=0.1rem">    
   <v-col>
     <h3> Accommodations</h3>
-        <Listbox v-model="selectedStudentAcc"  :options='studentAcc' :optionLabel= 'studisplay' optionValue="id" 
+        <Listbox v-model="selectedStudentAcc"  :options='studentAcc' filter :optionLabel= 'studisplay' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px; margin-top: 0.2rem; margin-left: 0.2rem;" />
 
     </v-col>

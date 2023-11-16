@@ -30,8 +30,6 @@ facultyServices.getFacultyIdByUserId(Utils.getStore("user").userId)
 });
 
 
-retrieveStudent();
-
 const display = (students) => students.name + " " + students.id;
 
 

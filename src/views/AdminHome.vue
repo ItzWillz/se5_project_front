@@ -142,7 +142,7 @@ const viewAcc = () => {
       <h2 style="text-align: center;">Other Actions</h2>
       <div class="text-center" >
        <button class=test @click="SearchStudent()">View All Students</button>
-       <button class=test @click="AccomadationType()">View Accomadation Types</button>
+       <button class=test @click="AccomadationType()">View Accomadation</button>
       </div>
        </v-col>
        </v-row>
