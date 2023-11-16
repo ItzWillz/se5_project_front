@@ -5,6 +5,7 @@ import Login from "./views/Login.vue";
 import AddAcc from "./views/AddAcc.vue";
 import EditAcc from "./views/EditAcc.vue";
 import ViewAcc from "./views/ViewAcc.vue";
+import StuViewAcc from "./views/StuViewAcc.vue";
 import AccomidationType from "./views/AccomidationType.vue";
 import AdminHome from "./views/AdminHome.vue";
 import FacultyHome from "./views/FacultyHome.vue";
@@ -13,7 +14,7 @@ import StudentUpdate from "./views/UpdateSAcc.vue";
 import SearchStudent from "./views/SearchStudent.vue";
 import AdminUpdate from "./views/UpdateAAcc.vue";
 import NewRequest from "./views/NewSAcc.vue";
-import ViewSAcc from "./views/ViewSAcc.vue";
+import ViewSAcc from "./views/StuViewAcc.vue";
 import ViewStudent from "./views/ViewStudent.vue";
 import ViewFS from "./views/ViewFacultyStudent.vue";
 import ViewAS from "./views/AdminStudentView.vue";
@@ -106,6 +107,12 @@ const router = createRouter({
       path: "/ViewAcc/:id",
       name: "ViewAcc",
       component: ViewAcc,
+      props: true
+    },
+    {
+      path: "/StuViewAcc/:id",
+      name: "StuViewAcc",
+      component: StuViewAcc,
       props: true
     },
     {
