@@ -151,9 +151,9 @@ const viewAcc = (selectedAcc) => {
 
 <v-row>
 <v-col>
-          <h2>Accomadation Requests</h2>
-        <Listbox v-model="selectedAcc"  :options='accReq' filter :optionLabel= 'display' optionValue="id" 
-        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+          <h2>Outgoing Requests</h2>
+        <Listbox v-model="selectedAcc"  :options='accReq' :optionLabel= 'display' optionValue="id" 
+        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px; margin-top:0.2rem; margin-left: 0.2rem;"/>
 
 </v-col>
 
@@ -161,13 +161,11 @@ const viewAcc = (selectedAcc) => {
  
     <div style="margin-top: 0.1rem"> 
       <h2 style="text-align: center;">Actions</h2>
-            <div style="margin-left: 150px;">
-      <div class="row">
+      <div class="text-center">
        <button class=test @click="newAcc()">Request New </button>
 
       </div>
             </div>
-      </div>
 </v-col>
 </v-row>
  
@@ -176,7 +174,7 @@ const viewAcc = (selectedAcc) => {
 <v-col>    
         <h2>Current Accommodations</h2>
         <Listbox v-model="selectedStuAcc"  :options='stuAcc' filter :optionLabel= 'studisplay' optionValue="id" 
-        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px; margin-top:0.2rem; margin-left: 0.2rem;" />
 
 </v-col>
  
