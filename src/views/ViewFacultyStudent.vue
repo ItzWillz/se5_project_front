@@ -2,7 +2,7 @@
 import Utils from "../config/utils";
 import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
-import accServices from "../services/stuaccommodationServices";
+import stuAccServices from "../services/stuaccommodationServices";
 import Listbox from "primevue/listbox";
 
 const router = useRouter();
@@ -20,9 +20,10 @@ const selectedStudentAcc = ref();
 
 console.log(props.id);
 const studentAcc = ref([]);
+const academicStuAcc = ref([]);
 
 const retrieveStudentAcc = () => {
-  accServices.getAllForUser(props.id)
+  stuAccServices.getAllAcademic(props.id, 9, 9)
     .then((response) => {
       studentAcc.value = response.data;
     })

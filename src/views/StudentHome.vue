@@ -32,7 +32,7 @@ studentServices.getStudentIdByUserId(Utils.getStore("user").userId)
 });
 
 const retrieveAccReq = () => {
-  accReqServices.getAllForUser(stuId)
+  accReqServices.getAllForUser(stuId, 9)
     .then((response) => {
       console.log(response.data)
       accReq.value = response.data;
@@ -59,13 +59,6 @@ const retrieveStuAcc = () => {
 };
 
 const studisplay = (stuAcc) => stuAcc.accommodationId + " " + stuAcc.semester;
-
-// const deleteAcc = () => {
-//   accServices.delete(selectedAcc.value)
-//     .finally(() => {
-//         router.go();
-//     });
-// };
     
 const newAcc =() => {
      router.push({ name: 'add'});

@@ -7,6 +7,9 @@ export default {
   getAllForUser(userId) {
     return apiClient.get(`/stucom/${userId}`);
   },
+  getAllAcademic(userId, int, int1) {
+    return apiClient.get(`/stucom/${userId}/${int}/${int1}`);
+  },
   get(id, stuid) {
     return apiClient.get(`/stucom/${id}/${stuid}`);
   },

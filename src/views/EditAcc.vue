@@ -69,7 +69,7 @@ const returnHome = () => {
             ></v-text-field>
             </v-col> 
             <v-col  cols="12"  md="4">
-            <v-select v-model="acc.type" id="type" label="Type:" :items="['Housing','Ethos', 'Academic', 'MealPlan']" required hide-details
+            <v-select v-model="acc.type" id="type" label="Type:" :items="['Housing','Chapel', 'Academic', 'Meal Plan']" required hide-details
             ></v-select>
             </v-col>
              </v-row>

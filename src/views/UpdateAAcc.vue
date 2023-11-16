@@ -10,7 +10,7 @@ import {useToast} from 'vue-toast-notification';
 //import nodemailer from "nodemailer";
 
 const router = useRouter();
-const accReq = ref({});
+const accReq = ref([]);
 const studentInfo = ref({});
 const accommodation = ref([])
 const toast = useToast();
@@ -19,6 +19,19 @@ const props = defineProps({
     required: true,
   },
 });
+
+const retrieveAccReq = () => {
+  accReqServices.get(props.id)
+  .then((response) => {
+    accReq.value = response.data[0];
+    console.log(accReq.value);
+  })
+  .catch((e) => {
+    console.log(e);
+  })
+};
+
+retrieveAccReq();
 
 const accommodations = ref([]);
 
@@ -31,7 +44,7 @@ const retrieveAccommodations = () => {
   .catch ((e) => {
     console.log(e)
   })
-}
+};
 
 retrieveAccommodations();
 
@@ -40,19 +53,19 @@ const returnHome = () => {
   router.push({ path: `/${Utils.getStore("user").permission}` })
 };
 
-const loadAccommodationRequest = async () => {
-  if (!Object.keys(accReq.value).length) {
-    try {
-      const response = await accReqServices.get(props.id);
-      accReq.value = response.data[0];
-      console.log(accReq.value)
-    } catch (error) {
-      console.error(error);
-    }
-  }
-};
+// const loadAccommodationRequest = async () => {
+//   if (!Object.keys(accReq.value).length) {
+//     try {
+//       const response = await accReqServices.get(props.id);
+//       accReq.value = response.data[0];
+//       console.log(accReq.value)
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   }
+// };
 
-onMounted(loadAccommodationRequest);
+// onMounted(loadAccommodationRequest);
 
 const acceptRequest = async () => {
   //if(accReq.value.status.toLowerCase()=="pending") {
@@ -83,6 +96,7 @@ const acceptRequest = async () => {
         selectedAccId = acc.id;
         console.log(selectedAccId)
       }
+      
     });
 
     // Create an object with the required student accommodation information.
@@ -100,6 +114,7 @@ const acceptRequest = async () => {
       position: 'top-right',
     });
     console.log("Request Accepted");
+    deleteRequest();
     router.push({ path: `/${Utils.getStore("user").permission}` })
   } catch (error) {
     console.error("Failed to accept request", error);
@@ -146,6 +161,14 @@ const rejectRequest = async () => {
   } catch (error) {
     console.error("Failed to reject request", error);
   }
+  deleteRequest();
+};
+
+const deleteRequest = async() => {
+    accReqServices.delete(accReq.value.id)
+    .finally(() => {
+        router.go();
+    });
 };
 
 </script>
@@ -160,7 +183,12 @@ const rejectRequest = async () => {
       <v-card-text>
         <v-form>
           <v-text-field
-            label="Body"
+            label="Desription"
+            v-model="accReq.body"
+            readonly
+          ></v-text-field>
+          <v-text-field
+            label="Student Id"
             v-model="accReq.studentId"
             readonly
           ></v-text-field>
