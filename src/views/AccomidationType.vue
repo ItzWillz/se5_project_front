@@ -1,16 +1,17 @@
 <script setup>
 import Utils from "../config/utils";
 import { useRouter } from "vue-router";
-
+import accServices from "../services/accommodationServices";
 const router = useRouter();
 
 const user = Utils.getStore("user")
 console.log(user)
 
-// import { ref, onMounted } from "vue";
+import { ref, onMounted } from "vue";
+import Listbox from "primevue/listbox";
 
-// const selectedAcc = ref();
-// const accomadation = ref([]);
+const selectedAcc = ref();
+const accomadation = ref([]);
 
 const retrieveAcc = () => {
   accServices.getAll()
@@ -23,7 +24,9 @@ const retrieveAcc = () => {
     });
 };
 
-//retrieveAcc();
+retrieveAcc();
+
+const display = (accomadation) => accomadation.title + " " + accomadation.id;
 
 const deleteAcc = () => {
   accServices.delete(selectedAcc.value)
@@ -76,7 +79,7 @@ const viewAcc = () => {
  <div class="column">    
         <h2>Current Accomadation Types</h2>
 <div class="card flex justify-content-center">
-        <Listbox v-model="selectedAcc"  :options='accomadation' filter optionLabel= 'name' optionValue="accomadationNum" 
+        <Listbox v-model="selectedAcc"  :options='accomadation' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
     </div>

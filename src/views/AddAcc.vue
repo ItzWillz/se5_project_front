@@ -60,6 +60,12 @@ const returnHome = () => {
             ></v-text-field>
             </v-col> 
             <v-col  cols="12"  md="4">
+            <v-select v-model="accRequest.type" id="type" label="Type:" :items="['Housing','Ethos', 'Classroom', 'MealPlan']" required hide-details
+            ></v-select>
+            </v-col>
+             </v-row>
+            <v-row>
+            <v-col  cols="12"  md="4">
               <v-text-field v-model="acc.body" id="body" label="Description" :counter="500" required hide-details 
             ></v-text-field>
             </v-col> 

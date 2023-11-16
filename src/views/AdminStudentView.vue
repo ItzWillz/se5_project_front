@@ -41,11 +41,11 @@ const viewStudentAcc = () => {
     console.error('Error: No course selected.');
     return;
   }
-  router.push({ name: 'viewFSA', params: { id: props.id, stuid: selectedStudentAcc.value } });
+  router.push({ name: 'viewASA', params: { id: props.id, stuid: selectedStudentAcc.value } });
 };
 
 const Return = () => {
-  router.push({ name: 'faculty'});
+  router.push({ name: 'search'});
 };
 
 </script>

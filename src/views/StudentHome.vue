@@ -19,6 +19,8 @@ const user = Utils.getStore("user")
 
 
 let stuId = null;
+ //let tab = null;
+
 
 studentServices.getStudentIdByUserId(Utils.getStore("user").userId)
 .then((response) => {
@@ -108,6 +110,52 @@ const newAcc =() => {
     <v-toolbar>
       <v-toolbar-title>Welcome, {{user.fName}}! </v-toolbar-title>
     </v-toolbar>
+   <!-- <v-tabs v-model="tab">
+      <v-tab tab="requests">Requests</v-tab>
+      <v-tab tab="accommodations">Current</v-tab>
+</v-tabs>
+
+  <v-tab-items v-model="tab">
+    <v-tab-item :key="1" value="requests" >
+      <v-card>
+      <v-row style="margin-top: 0.1rem">
+        <v-col>
+          <h2>Accomadation Requests</h2>
+        <Listbox v-model="selectedAcc"  :options='accReq' filter :optionLabel= 'display' optionValue="id" 
+        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+        </v-col>
+
+        <v-col>
+            <h2 style="text-align: center;">Actions</h2>
+              <div class="text-center">
+                <button class="test" @click="newAcc()">Request New</button>
+                <button class="test" @click="updateAcc(accommodation)">Request changes</button>
+              </div>
+        </v-col>
+      </v-row>
+      </v-card>
+    </v-tab-item>
+
+    <v-tab-item :key="2" value="accommodations" >
+      <v-card>
+      <v-row style="margin-top: 0.1rem">
+       <v-col>    
+        <h2>Current Accommodations</h2>
+        <Listbox v-model="selectedStuAcc"  :options='stuAcc' filter :optionLabel= 'studisplay' optionValue="id" 
+        :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
+
+</v-col>
+        <v-col>
+            <h2 style="text-align: center;">Actions</h2>
+              <div class="text-center">
+                <button class="test" @click="viewAcc(accommodation)">View</button>
+              </div>
+        </v-col>
+      </v-row>
+      </v-card>
+    </v-tab-item>
+  </v-tab-items> -->
+
 <v-row>
 <v-col>
           <h2>Accomadation Requests</h2>
@@ -143,12 +191,10 @@ const newAcc =() => {
  <v-col>
     <div style="margin-top: 0.1rem"> 
       <h2 style="text-align: center;">Actions</h2>
-      <div style="margin-left: 220px;">
 
-      <div class="row" >
+      <div class="text-center" >
        <button class=test @click="viewAcc(accomadation)">View</button>
 
-      </div>
       </div>
       </div>
  </v-col>

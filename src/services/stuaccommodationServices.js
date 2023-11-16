@@ -7,8 +7,8 @@ export default {
   getAllForUser(userId) {
     return apiClient.get(`/stucom/${userId}`);
   },
-  get(id) {
-    return apiClient.get(`/stucom/${id}`);
+  get(id, stuid) {
+    return apiClient.get(`/stucom/${id}/${stuid}`);
   },
   create(data) {
     return apiClient.post("/stucom", data);
