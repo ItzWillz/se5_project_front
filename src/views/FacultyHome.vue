@@ -29,7 +29,11 @@ facultyServices.getFacultyIdByUserId(Utils.getStore("user").userId)
   console.log(e)
 });
 
+
+retrieveStudent();
+
 const display = (students) => students.name + " " + students.id;
+
 
 const viewStudentAcc = () => {
   if (!selectedStudent.value) {
