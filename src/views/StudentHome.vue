@@ -79,13 +79,13 @@ const newAcc =() => {
 //   router.push({ name: 'studentupdate', params: { id: selectedAcc.value } });
 // };
 
-// const viewAcc = () => {
-//   if (!selectedAcc.value) {
-//     console.error('Error: No course selected.');
-//     return;
-//   }
-//   router.push({ name: 'viewAcc', params: { id: selectedAcc.value } });
-// };
+const viewAcc = (selectedAcc) => {
+  if (selectedAcc == null) {
+    console.error('Error: No course selected.');
+    return;
+  }
+  router.push({ name: 'StuViewAcc', params: { id: selectedAcc } });
+};
 
 </script>
 
@@ -171,7 +171,6 @@ const newAcc =() => {
             <div style="margin-left: 150px;">
       <div class="row">
        <button class=test @click="newAcc()">Request New </button>
-      <button class=test @click="updateAcc(accomadation)"> Request changes </button>
 
       </div>
             </div>
@@ -193,7 +192,7 @@ const newAcc =() => {
       <h2 style="text-align: center;">Actions</h2>
 
       <div class="text-center" >
-       <button class=test @click="viewAcc(accomadation)">View</button>
+       <button class=test @click="viewAcc(selectedStuAcc)">View</button>
       </div>
       </div>  
  </v-col>
