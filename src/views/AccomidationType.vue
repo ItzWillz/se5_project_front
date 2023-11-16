@@ -90,17 +90,16 @@ const SearchStudent =() => {
  <v-container>
   
 
- <div class="column">    
+ <v-row style="margin-top: 0.1rem">  
+  <v-col>  
         <h2>Current Accomadation Types</h2>
-<div class="card flex justify-content-center">
         <Listbox v-model="selectedAcc"  :options='accomadation' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
-    </div>
- 
-    <div style="margin-top: 0.1rem"> 
+ </v-col>
+    <v-col > 
       <h2 style="text-align: center;">Actions</h2>
-      <div class="row">
+      <div class="text-center">
        <button class=test @click="AddAcc()">Create New</button>
       <button class=test @click="EditAcc(accomadation)"> Edit </button>
        <button class=test @click="viewAcc(accomadation)">View</button>
@@ -108,12 +107,12 @@ const SearchStudent =() => {
       </div>
 
       <h2 style="text-align: center;">Other Actions</h2>
-      <div class="row" >
+      <div class="text-center" >
        <button class=test @click="AdminHome()">View All Requests</button>
        <button class=test @click="SearchStudent()">View Students</button>
       </div>
-      </div>
- </div>
+      </v-col>
+ </v-row>
 
         
   </v-container>
