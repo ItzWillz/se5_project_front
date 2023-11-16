@@ -51,21 +51,24 @@ const viewStudentAcc = () => {
       <v-toolbar-title>Welcome, {{user.fName}}! </v-toolbar-title>
     </v-toolbar>
 
- <div class="column">    
+  <v-row style="margin-top: 0.1rem">
+  <v-col> 
     <h3>Students with Accommodations</h3>
-<div class="card flex justify-content-center">
+
         <Listbox v-model="selectedStudent"  :options='students' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
 
-    </div>
- </div>
+    </v-col>
 
-    <div style="margin-top: 7rem"> 
+<v-col>
+    
       <h1 style="text-align: center;">Actions</h1>
-      <div class="row">
-       <button @click="viewStudentAcc(selectedStudent)">View</button>
+       <div class="text-center">
+
+       <button  @click="viewStudentAcc(selectedStudent)">View</button>
       </div>
-      </div>
+</v-col>
+  </v-row>
 
   </v-container>
 </template>

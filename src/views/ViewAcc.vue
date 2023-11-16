@@ -1,8 +1,7 @@
 <script setup>
   import { ref } from "vue";
   import { Modal } from 'usemodal-vue3';
-  import accReqServices from "../services/accReqServices";
-  import studentServices from "../services/studentServices";
+  import accServices from "../services/accommodationServices";
   import { useRouter } from "vue-router";
   import Utils from "../config/utils";
 
@@ -12,35 +11,52 @@
   const message = ref("");
 
 
-  const acc = ref({
-  body: "",
-  name: "",
+const props = defineProps({
+  id: {
+    required: true,
+  },
 });
 
+  const acc = ref([]);
+
+const retrieveAcc = () => {
+  accServices.get(props.id)
+    .then((response) => {
+      acc.value = response.data;
+    })
+    .catch((e) => {
+        console.log(e);
+    });
+};
+
+retrieveAcc();
 
 const returnHome = () => {
-  router.push({ path: `/${Utils.getStore("user").permission}` });
+  router.push({ name: "accType" });
 };
 </script>
 
 <template>
 
 <div style="background-color: maroon; width 100%; height:50px; display:block;">
-      <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">View Accomadation Type</h1>
+      <h1 style="color:white; text-align:center; margin:0px; padding-top:5px;">Edit Accomadation Type</h1>
       </div>
     <v-form v-model="valid" style="padding-top:20px;">
 
-
-      <v-container>
-           
-
-          <v-row>
+      <v-container>  
+         <v-row>
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.name" id="name" label="Name" :counter="50" required hide-details readonly=""
+              <v-text-field v-model="acc.title" id="title" label="Title" :counter="50" required hide-details readonly
             ></v-text-field>
             </v-col> 
             <v-col  cols="12"  md="4">
-              <v-text-field v-model="acc.body" id="body" label="Description" :counter="500" required hide-details readonly=""
+            <v-select v-model="acc.type" id="type" label="Type:" :items="['Housing','Ethos', 'Academic', 'MealPlan']" required hide-details readonly
+            ></v-select>
+            </v-col>
+             </v-row>
+            <v-row>
+            <v-col  cols="12"  md="4">
+              <v-text-field v-model="acc.description" id="description" label="Description" :counter="500" required hide-details readonly
             ></v-text-field>
             </v-col> 
               </v-row>

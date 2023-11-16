@@ -49,22 +49,8 @@ const retrieveStudentAcc = () => {
 
 retrieveStudentAcc();
 
-
-
-// const retrieveAcc = () => {
-//   accServices.get(stuacc.accommodationId)
-//     .then((response) => {
-//       acc.value = response.data;
-//     })
-//     .catch((e) => {
-//         console.log(e);
-//     });
-// };
-
-// retrieveAcc();
-
 const returnToStudentAccList = () => {
-  router.push({ name: 'viewFS', params: { id: props.id} });
+  router.push({ name: 'viewAS', params: { id: props.id} });
 };
 
 </script>

@@ -4,7 +4,7 @@ import Utils from "./config/utils"
 import Login from "./views/Login.vue";
 import AddAcc from "./views/AddAcc.vue";
 import EditAcc from "./views/EditAcc.vue";
-import ViewAcc from "./views/AddAcc.vue";
+import ViewAcc from "./views/ViewAcc.vue";
 import AccomidationType from "./views/AccomidationType.vue";
 import AdminHome from "./views/AdminHome.vue";
 import FacultyHome from "./views/FacultyHome.vue";
@@ -16,6 +16,9 @@ import NewRequest from "./views/NewSAcc.vue";
 import ViewSAcc from "./views/ViewSAcc.vue";
 import ViewStudent from "./views/ViewStudent.vue";
 import ViewFS from "./views/ViewFacultyStudent.vue";
+import ViewAS from "./views/AdminStudentView.vue";
+import ViewFSA from "./views/ViewFacultyStudentAcc.vue";
+import ViewASA from "./views/AdminStudentAccView.vue";
 import CourseSchedule from "./views/ViewCourseSchedule.vue";
 
 const router = createRouter({
@@ -94,15 +97,16 @@ const router = createRouter({
       component: AddAcc,
     },
     {
-      path: "/EditAcc",
+      path: "/EditAcc/:id",
       name: "EditAcc",
       component: EditAcc,
       props: true,
     },
     {
-      path: "/ViewAcc",
+      path: "/ViewAcc/:id",
       name: "ViewAcc",
       component: ViewAcc,
+      props: true
     },
     {
       path: "/view/:id",
@@ -122,6 +126,24 @@ const router = createRouter({
       component: ViewFS,
       props: true,
     },
+    {
+    path: "/viewAS/:id",
+    name: "viewAS",
+    component: ViewAS,
+    props: true,
+  },
+    {
+    path: "/viewFSA/:id/:stuid",
+    name: "viewFSA",
+    component: ViewFSA,
+    props: true,
+    },
+    {
+      path: "/viewASA/:id/:stuid",
+      name: "viewASA",
+      component: ViewASA,
+      props: true,
+      },
     {
       path: "/courseSchedule/:id",
       name: "courseSchedule",

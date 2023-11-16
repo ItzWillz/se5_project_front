@@ -125,30 +125,31 @@ const viewAcc = () => {
       <v-toolbar-title>Welcome, {{user.fName}}! </v-toolbar-title>
     </v-toolbar>
 
- <div class="column">    
+ <v-row>
+ 
+ <v-col style="margin-top: 0.1rem">    
         <h2>Incoming Requests</h2>
-<div class="card flex justify-content-center">
         <Listbox v-model="selectedAcc"  :options='accReq' filter :optionLabel= 'display' optionValue="id" 
         :virtualScrollerOptions="{ itemSize: 38 }" class="w-full md:w-14rem" listStyle="height:450px" />
-
-    </div>
+ </v-col>
  
-    <div style="margin-top: 0.1rem"> 
+ <v-col>
       <h2 style="text-align: center;">Actions</h2>
-      <div class="row">
-      <button class=test @click="updateAcc()"> Edit Request </button>
+      <div class="text-center">
+      <button class=test @click="updateAcc()"> Update Status </button>
       </div>
-      </div>
- </div>
 
       <h2 style="text-align: center;">Other Actions</h2>
-      <div class="row" >
+      <div class="text-center" >
        <button class=test @click="SearchStudent()">View All Students</button>
        <button class=test @click="AccomadationType()">View Accomadation Types</button>
       </div>
+       </v-col>
+       </v-row>
 
 
- <div class="column">    
+
+ <!-- <div class="column">    
         <h2>Current Accomadations</h2>
 <div class="card flex justify-content-center">
         <Listbox v-model="selectedAcAcc"  :options='acc' filter :optionLabel= 'displayAcc' optionValue="id" 
@@ -168,7 +169,7 @@ const viewAcc = () => {
        <button class=test @click="viewAcc()">View</button>
       </div>
       </div>
- </div>
+ </div> -->
         
   </v-container>
 </template>
