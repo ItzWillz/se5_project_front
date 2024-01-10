@@ -38,7 +38,20 @@ const handleCredentialResponse = async (response) => {
       Utils.setStore("user", user.value);
       fName.value = user.value.fName;
       lName.value = user.value.lName;
-      router.push({ name: "tutorials" });
+      console.log(user.value)
+      if (user.value.permission === 'admin') {
+        router.push({ name: "admin" });
+      }
+      else if (user.value.permission === 'faculty') {
+        router.push({ name: "faculty" });
+      }
+      else if (user.value.permission === 'student') {
+        router.push({ name: "student" });
+      }
+      else {
+        router.push({name: "login"});
+      }
+      
     })
     .catch((error) => {
       console.log("error", error);
