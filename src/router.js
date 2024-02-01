@@ -16,11 +16,7 @@ import AdminUpdate from "./views/UpdateAAcc.vue";
 import NewRequest from "./views/NewSAcc.vue";
 import ViewSAcc from "./views/StuViewAcc.vue";
 import ViewStudent from "./views/ViewStudent.vue";
-import ViewFS from "./views/ViewFacultyStudent.vue";
-import ViewAS from "./views/AdminStudentView.vue";
-import ViewFSA from "./views/ViewFacultyStudentAcc.vue";
-import ViewASA from "./views/AdminStudentAccView.vue";
-import CourseSchedule from "./views/ViewCourseSchedule.vue";
+
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -127,36 +123,7 @@ const router = createRouter({
       component: ViewSAcc,
       props: true,
     },
-    {
-      path: "/viewFS/:id",
-      name: "viewFS",
-      component: ViewFS,
-      props: true,
-    },
-    {
-    path: "/viewAS/:id",
-    name: "viewAS",
-    component: ViewAS,
-    props: true,
-  },
-    {
-    path: "/viewFSA/:id/:stuid",
-    name: "viewFSA",
-    component: ViewFSA,
-    props: true,
-    },
-    {
-      path: "/viewASA/:id/:stuid",
-      name: "viewASA",
-      component: ViewASA,
-      props: true,
-      },
-    {
-      path: "/courseSchedule/:id",
-      name: "courseSchedule",
-      component: CourseSchedule,
-      props: true,
-    },
+    
   ],
 });
 
